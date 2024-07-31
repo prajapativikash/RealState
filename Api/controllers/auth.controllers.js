@@ -1,6 +1,7 @@
 const User = require('../models/User.model.js')
-const bcryptjs = require('bcryptjs')
-const signup = async (req, res) => {
+const bcryptjs = require('bcryptjs');
+const errorHandler = require('../utils/error.js');
+const signup = async (req, res, next) => {
    console.log(req.body)
    const { username, email, password } = req.body;
    const hashedPassword = bcryptjs.hashSync(password, 10)
@@ -11,7 +12,8 @@ const signup = async (req, res) => {
       res.status(201).json({ message: 'User registered successfully' })
 
    } catch (error) {
-      return res.status(400).json({ message: error.message })
+      next(error)
+      // next(errorHandler(550, "error from the function"))
    }
 
 }
