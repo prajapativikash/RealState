@@ -8,11 +8,12 @@ const signup = async (req, res, next) => {
    const NewUser = new User({ username, email, password: hashedPassword })
 
    try {
-      await NewUser.save()
+      await NewUser.save();
       res.status(201).json({ message: 'User registered successfully' })
 
    } catch (error) {
       next(error)
+
       // next(errorHandler(550, "error from the function"))
    }
 
